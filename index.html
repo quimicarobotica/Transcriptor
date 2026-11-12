@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Transcritor Offline</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--line:#334155;--fg:#f1f5f9;--mut:#94a3b8;--acc:#14b8a6;--rec:#ef4444}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:env(safe-area-inset-top) 16px calc(24px + env(safe-area-inset-bottom))}
+main{max-width:640px;margin:0 auto}
+h1{font-size:20px;margin:18px 0 2px}
+.sub{color:var(--mut);font-size:13px;margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+label{display:block;font-size:12px;color:var(--mut);margin-bottom:4px}
+select,button,textarea{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;width:100%}
+button{cursor:pointer;background:var(--card)}
+button.primary{background:var(--acc);border-color:var(--acc);color:#042f2e;font-weight:600}
+button:disabled{opacity:.45;cursor:not-allowed}
+#rec{height:88px;font-size:18px;font-weight:600;background:var(--acc);color:#042f2e;border:0}
+#rec.on{background:var(--rec);color:#fff;animation:p 1.2s infinite}
+@keyframes p{50%{opacity:.7}}
+#timer{text-align:center;color:var(--mut);font-variant-numeric:tabular-nums;margin-top:8px;min-height:22px}
+.bar{height:8px;background:var(--bg);border-radius:6px;overflow:hidden;margin-top:8px;display:none}
+.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .2s}
+#status{font-size:13px;color:var(--mut);margin-top:8px;min-height:18px}
+textarea{min-height:200px;resize:vertical}
+.actions{display:flex;gap:8px;margin-top:8px}
+.actions button{padding:9px 6px;font-size:14px}
+input[type=file]{display:none}
+.pill{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+.pill.ok{color:var(--acc);border-color:var(--acc)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Transcritor Offline</h1>
+  <p class="sub">Voz para texto direto no celular. Nada é enviado para a internet. <span id="net" class="pill"></span></p>
+
+  <div class="card">
+    <div class="row">
+      <div><label for="model">Modelo</label>
+        <select id="model">
+          <option value="Xenova/whisper-tiny">Tiny (~40 MB, rápido)</option>
+          <option value="Xenova/whisper-base" selected>Base (~80 MB, equilibrado)</option>
+          <option value="Xenova/whisper-small">Small (~250 MB, mais preciso)</option>
+        </select></div>
+      <div><label for="lang">Idioma</label>
+        <select id="lang">
+          <option value="portuguese" selected>Português</option>
+          <option value="english">Inglês</option>
+          <option value="spanish">Espanhol</option>
+          <option value="italian">Italiano</option>
+          <option value="">Detectar</option>
+        </select></div>
+    </div>
+    <div class="bar" id="bar"><i id="fill"></i></div>
+    <div id="status">Toque em gravar. Na primeira vez o modelo será baixado (precisa de internet uma única vez).</div>
+  </div>
+
+  <div class="card">
+    <button id="rec">● Gravar</button>
+    <div id="timer"></div>
+    <div class="actions">
+      <button id="pick">Escolher arquivo de áudio</button>
+      <input id="file" type="file" accept="audio/*,video/*">
+    </div>
+  </div>
+
+  <div class="card">
+    <label for="out">Texto</label>
+    <textarea id="out" placeholder="A transcrição aparece aqui. Você pode editar."></textarea>
+    <div class="actions">
+      <button id="copy">Copiar</button>
+      <button id="share">Compartilhar</button>
+      <button id="save">Salvar .txt</button>
+      <button id="clear">Limpar</button>
+    </div>
+  </div>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>

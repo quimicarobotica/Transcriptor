@@ -1,0 +1,11 @@
+TRANSCRITOR OFFLINE (PWA) - como publicar e instalar no celular
+
+1) Hospede esta pasta em um endereco HTTPS (obrigatorio para microfone e modo offline).
+   Opcoes gratuitas: Netlify Drop (arraste a pasta em app.netlify.com/drop), GitHub Pages ou Cloudflare Pages.
+2) Abra o endereco no celular:
+   - Android (Chrome): menu > "Instalar app".
+   - iPhone (Safari): Compartilhar > "Adicionar a Tela de Inicio".
+3) Abra o app UMA vez com internet e faca uma transcricao curta: isso baixa o modelo (Base ~80 MB) e o guarda no aparelho.
+4) Depois disso funciona em modo aviao.
+
+Modelos: Tiny (rapido, menos preciso), Base (equilibrado), Small (mais preciso, mais lento e ~250 MB).
